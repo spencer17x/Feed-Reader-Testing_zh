@@ -26,9 +26,9 @@ $(function() {
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
          */
         it('sources are defined', function() {
+            var regularExpressionUrl = /^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/; // 检查 URL 格式是否正确的正规表达式
             allFeeds.forEach(function(obj) {
-                expect(obj.url).toBeDefined();
-                expect(obj.url.length).not.toBe(0);
+                expect(obj.url).toMatch(regularExpressionUrl);
             });
         });
 
@@ -87,9 +87,8 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0,done);
         });
-        it('Working properly',function(done) {
+        it('Working properly',function() {
             expect($('.feed .entry').length).not.toBe(0);
-            done();
         });
 
 
@@ -112,9 +111,8 @@ $(function() {
         });
 
 
-        it('content will be changed',function(done) {
+        it('content will be changed',function() {
             expect($('.feed').text() != feed0).toBe(true);
-            done();
         });
 
     });
